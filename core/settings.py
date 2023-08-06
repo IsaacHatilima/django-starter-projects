@@ -29,20 +29,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = secret_key_generator.generate()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# If the variabel DEBUG is not defined, it will default to False or 0.
+# In development you have to define DEBUG=1 and omit it in production of define DEBUG=0
+DEBUG = bool(int(os.getenv('DEBUG'), 0))
 
-ALLOWED_HOSTS = []
+if DEBUG:
+    ALLOWED_HOSTS = []
+else:
+    ALLOWED_HOSTS = ['yourdomain.com']
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_SAVE_EVERY_REQUEST = True
-# Application definition
-CREATED_APPS = [
-    
-]
 
-THIRD_PARTY_APPS = [
-    
-]
+SESSION_SAVE_EVERY_REQUEST = True
+
+# Application definition
+
+CREATED_APPS = []
+
+THIRD_PARTY_APPS = []
 
 CORE_APPS = [
     'django.contrib.admin',
