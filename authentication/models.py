@@ -8,7 +8,7 @@ class UserManager(BaseUserManager):
     def create_user(self, firstname, lastname, email, username, role, password=None):
         user = self.model(firstname=firstname, lastname=lastname,
                           email=self.normalize_email(email),
-                          role=role, username=username)
+                          username=username)
         user.set_password(password)
         user.save()
         return user
@@ -17,7 +17,7 @@ class UserManager(BaseUserManager):
                          password=None):
         user = self.model(firstname=firstname, lastname=lastname,
                           email=self.normalize_email(email),
-                          role=role, username=username)
+                          username=username)
         user.set_password(password)
         user.is_superuser = True
         user.is_verified = True
@@ -26,24 +26,18 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    ROLE_CHOICES = [
-        ('System Admin', 'System Admin'),
-        ('Accounts', 'Accounts'),
-        ('Marketing', 'Marketing'),
-    ]
     public_key = models.UUIDField(default=uuid.uuid4, editable=False,
                                   null=False, unique=True)
     email = models.EmailField(max_length=50, unique=True, null=False)
     username = models.CharField(max_length=50, null=False)
     firstname = models.CharField(max_length=50, null=False)
     lastname = models.CharField(max_length=50, null=False)
-    role = models.CharField(max_length=50, choices=ROLE_CHOICES, null=False)
     is_verified = models.BooleanField(default=False, null=False)
     is_active = models.BooleanField(default=True, null=False)
     created_at = models.DateTimeField(auto_now_add=True, null=False)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'firstname', 'lastname', 'role']
+    REQUIRED_FIELDS = ['username', 'firstname', 'lastname']
 
     objects = UserManager()
 
