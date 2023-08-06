@@ -42,9 +42,13 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 SESSION_SAVE_EVERY_REQUEST = True
 
+AUTH_USER_MODEL = 'authentication.User'
+
 # Application definition
 
-CREATED_APPS = []
+CREATED_APPS = [
+    'authentication',
+]
 
 THIRD_PARTY_APPS = []
 
