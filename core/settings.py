@@ -44,7 +44,9 @@ SESSION_SAVE_EVERY_REQUEST = True
 
 # Application definition
 
-CREATED_APPS = []
+CREATED_APPS = [
+    'authentication',
+]
 
 THIRD_PARTY_APPS = []
 
